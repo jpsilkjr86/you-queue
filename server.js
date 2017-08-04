@@ -24,11 +24,19 @@ app.use(express.static("public"));
 // app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 // app.set("view engine", "handlebars");
 
-// listens to port for running server
-app.listen(port, () => {
-	console.log('App listening on port ' + port);
-	// sets up routes
-	require('./controllers/html-routes.js')(app);
-	// require('./controllers/api-routes.js')(app);
+// imports sequelize db object for initializing database
+const db = require('./models');
+
+// attempts to establish connection to mysql server
+db.sequelize.sync().then(() => {
+	// listens to port for running server
+	app.listen(port, () => {
+		console.log('App listening on port ' + port);
+		// sets up routes
+		require('./controllers/html-routes.js')(app);
+		require('./controllers/api-routes.js')(app);
+	});
+}).catch(err => {
+	console.log(err);
 });
 	
