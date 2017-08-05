@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Kaushan+Script|Shadows+Into+Light" rel="stylesheet">
     <!-- Style Sheets: Materialize Framework, Custom Style Sheet -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/style.css">
     <!-- Javascript Link (for?) -->
     <script src="https://use.fontawesome.com/556453154e.js"></script>
 </head>
@@ -23,7 +23,8 @@
 
     </ul>
     <nav>
-        <div class="nav-wrapper">
+       <div class="nav-wrapper">
+            <div id="logo"> <img src="brand.png">
                 <ul class="right hide-on-down">
                     <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons left">perm_identity</i></a></li>
                 </ul>
@@ -47,22 +48,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="h2">Possible wait time</div>
+                        <div id="h2">Wait Time</div>
                         <div class="card">
                             <div class="card-content black-text">
                                 <center>
-                                    <div>Inside or Outside</div>
+                                    <div>Inside or Outside?</div>
                                 </center>
                                 <ul id="ingredientList">
                                 </ul>
                                 <div class="card-action center">
-                                    <button id="recipeButton" class="btn waves-effect waves-light green" type="submit" name="action">Your Wait Time
+                                    <button id="recipeButton" class="btn waves-effect waves-light blue" type="submit" name="action">Your Wait Time
                                         <i class="material-icons right"></i>
                                     </button>
                                 </div>
                                 <div>
-                                    <!-- <center> <a id="resetButton" href="#">New Search</a></center> -->
-                                    <p><a href="map.html" target="_blank" class="btn-floating btn-small waves-effect waves-light green tooltipped" data-position="left" data-delay="50" data-tooltip="Grocery Stores Nearby!"><i class="material-icons">location_on</i></a><a id="resetButton" class="btn-floating btn-small waves-effect waves-light green tooltipped" data-position="right" data-delay="50" data-tooltip="Clear Search""><i class="material-icons">replay</i></a></p>
+                                  
                                 </div>
                             </div>
                         </div>
@@ -79,6 +79,6 @@
     <!-- JavaScript Links: jquery, materialize, custom -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 </html>
