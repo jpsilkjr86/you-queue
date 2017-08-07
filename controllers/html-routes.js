@@ -9,4 +9,9 @@ module.exports = function (app) {
 		res.render('index', {title: 'You-Queue: Home'});
 	});
 
+	// html route for login page
+	app.get('/login', (req, res) => {
+		// render according to arrays
+		res.render('login', {title: 'You-Queue: Welcome!'});
+	});
 }
