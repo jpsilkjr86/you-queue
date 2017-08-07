@@ -22,4 +22,22 @@ module.exports = (app) => {
 			console.log(err);
 		});
 	});
+	// route for posting user login data
+	app.post('/user/login', (req, res) => {
+		// console.log(req.body);
+		// instantiates local userData as block-scoped object
+		let userData = {
+			email: req.body.email,
+			password: req.body.password
+		};
+		console.log(userData);
+		// checks to see if userData is in the database
+		db.TestTable.findOne({where: userData}).then(result => {
+			console.log(result);
+			res.json(result);
+		}).catch(err => {
+			res.send('Email and password combination do not match our records.');
+			console.log('Email and password combination do not match our records.');
+		});
+	});
 };
