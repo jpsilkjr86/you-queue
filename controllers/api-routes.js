@@ -40,4 +40,26 @@ module.exports = (app) => {
 			console.log('Email and password combination do not match our records.');
 		});
 	});
+	// route for posting user login data
+	app.post('/user/new', (req, res) => {
+		// console.log(req.body);
+		// instantiates local newUserData as block-scoped object
+		let newUserData = {
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			company_name: req.body.company_name,
+			phone_number: req.body.phone_number,
+			email: req.body.email,
+			password: req.body.password
+		};
+		console.log(newUserData);
+		// checks to see if newUserData is in the database
+		db.TestTable.create(newUserData).then(result => {
+			console.log('User successfully created!');
+			res.json('User successfully created!');
+		}).catch(err => {
+			res.send(err);
+			console.log(err);
+		});
+	});
 };
