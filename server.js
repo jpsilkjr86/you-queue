@@ -16,13 +16,13 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // serves public directory as static, enabling html pages to link with their assets
 app.use(express.static("public"));
 
-// ====== FOR IMPORTING HANDLEBARS (may not be necessary) ======
+// ====== FOR IMPORTING HANDLEBARS ======
 // Override with POST having ?_method=DELETE
-// app.use(methodOverride("_method"));
-// // Imports handlebars and sets it as rendering engine
-// var exphbs = require("express-handlebars");
-// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-// app.set("view engine", "handlebars");
+app.use(methodOverride("_method"));
+// Imports handlebars and sets it as rendering engine
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // imports sequelize db object for initializing database
 const db = require('./models');

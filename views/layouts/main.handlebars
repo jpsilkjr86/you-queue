@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts Links -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Kaushan+Script|Shadows+Into+Light" rel="stylesheet">
+    <!-- Style Sheets: Materialize Framework, Custom Style Sheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <!-- Javascript Link (for?) -->
+    <script src="https://use.fontawesome.com/556453154e.js"></script>
+</head>
+<body>
+    <!-- Right-Floating Profile Dropdown Menu -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="https://www.linkedin.com/in/michael-tolmie-83527537/">Michael</a></li>
+        <li><a href="https://www.linkedin.com/in/john-silkey-jr/">John</a></li>
+        <li><a href="https://www.linkedin.com/in/tarmin-sidharta/">Tarmin</a></li>
+    </ul>
+    <!-- Top Navbar with Logo -->
+    <nav>
+       <div class="nav-wrapper">
+            <div id="logo"> <img src="/assets/images/brand.png">
+                <ul class="right hide-on-down">
+                    <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons left">perm_identity</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {{{ body }}}
+    </div>    
+    <!-- JavaScript Links: jquery, materialize, custom -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+</body>
+</html>

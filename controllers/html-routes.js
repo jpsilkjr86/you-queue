@@ -5,6 +5,8 @@ const path = require('path');
 module.exports = function (app) {
 	// html route for index
 	app.get('/', (req, res) => {
-		res.sendFile(path.join(__dirname, "../views/index.html"));
+		// render according to arrays
+		res.render('index', {title: 'You-Queue: Home'});
 	});
+
 }
