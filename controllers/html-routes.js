@@ -2,20 +2,31 @@
 const path = require('path');
 
 // exports is a function that takes in app as an argument
-module.exports = function (app) {
+module.exports = app => {
 	// html route for index
 	app.get('/', (req, res) => {
 		// render handlebars according to object data
 		res.render('index', {title: 'You-Queue: Home'});
 	});
 	// html route for login page
-	app.get('/login', (req, res) => {
+	app.get('/signin', (req, res) => {
 		// render handlebars according to object data
-		res.render('login', {title: 'You-Queue: Welcome!'});
+		res.render('signin', {title: 'You-Queue: Welcome!'});
 	});
-	// html route for login page
+	// html route for queue dashboard page
 	app.get('/dashboard', (req, res) => {
 		// render handlebars according to object data
 		res.render('dashboard', {title: 'You-Queue Dashboard'});
+	});
+
+	// logs user out of site, deleting them from the session, and returns to homepage
+	app.get('/logout', (req, res) => {
+		if (req.user) {
+			let name = req.user.first_name;
+			console.log("LOGGING OUT " + name);
+			req.logout();
+			req.session.notice = "Log out successful. Please visit us again, " + name + "!";
+		}
+		res.redirect('/');
 	});
 }
