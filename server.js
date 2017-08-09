@@ -22,13 +22,13 @@ const authFunct = require('./custom_modules/authentication-functions.js')(db);
 // ================ Passport ================
 // Passport session setup
 passport.serializeUser((user, done) => {
-  console.log("serializing " + user.email);
-  done(null, user);
+	console.log("serializing " + user.email);
+	done(null, user);
 });
 
 passport.deserializeUser((obj, done) => {
-  console.log("deserializing " + obj);
-  done(null, obj);
+	console.log("deserializing " + obj);
+	done(null, obj);
 });
 
 // Sets up sign-in LocalStrategy within Passport

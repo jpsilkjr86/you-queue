@@ -18,23 +18,18 @@
   },
   "homepage": "https://github.com/Fritzz38/you-queue#readme",
   "dependencies": {
-    "bcryptjs": "^0.7.12",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.5",
     "method-override": "^2.3.9",
-    "mongodb": "^2.2.11",
     "morgan": "^1.8.2",
     "mysql2": "^1.4.0",
-    "passport": "^0.2.0",
-    "passport-facebook": "^1.0.3",
-    "passport-google": "^0.3.0",
+    "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.2",
     "path": "^0.12.7",
-    "q": "^1.0.1",
     "sequelize": "^4.4.2"
   }
 }
