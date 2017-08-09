@@ -6,12 +6,18 @@ module.exports = app => {
 	// html route for index
 	app.get('/', (req, res) => {
 		// render handlebars according to object data
-		res.render('index', {title: 'You-Queue: Home'});
+		res.render('index', {
+			title: 'You-Queue: Home',
+			user: req.user
+		});
 	});
 	// html route for login page
 	app.get('/signin', (req, res) => {
 		// render handlebars according to object data
-		res.render('signin', {title: 'You-Queue: Welcome!'});
+		res.render('signin', {
+			title: 'You-Queue: Welcome!',
+			user: req.user
+		});
 	});
 	// html route for queue dashboard page
 	app.get('/dashboard', (req, res) => {
@@ -23,8 +29,7 @@ module.exports = app => {
 			// render handlebars according to object data
 			res.render('dashboard', {
 				title: 'You-Queue Dashboard',
-				first_name: req.user.first_name,
-				company_name: req.user.company_name
+				user: req.user
 			});
 		}
 	});

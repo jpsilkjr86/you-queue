@@ -4,10 +4,10 @@
             <div class="card-content">
                 <div class="card z-depth-2">
                     <div class="card-content black-text center-align">
-                        {{#if company_name}}
-                        <span class="card-title">Queue for {{company_name}}</span>
+                        {{#if user.company_name}}
+                        <span class="card-title">Queue for {{user.company_name}}</span>
                         {{else}}
-                        <span class="card-title">Queue for {{first_name}}</span>
+                        <span class="card-title">Queue for {{user.first_name}}</span>
                         {{/if}}
                         <div class="card-action center">
                             Some action
