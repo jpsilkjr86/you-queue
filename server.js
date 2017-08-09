@@ -1,7 +1,13 @@
 // dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
-const methodOverride = require("method-override");
+const express = require('express'),
+	bodyParser = require('body-parser'),
+	methodOverride = require("method-override"),
+    exphbs = require('express-handlebars'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local');
 
 // sets up express app
 const app = express();
@@ -19,8 +25,7 @@ app.use(express.static("public"));
 // ====== FOR IMPORTING HANDLEBARS ======
 // Override with POST having ?_method=DELETE
 app.use(methodOverride("_method"));
-// Imports handlebars and sets it as rendering engine
-var exphbs = require("express-handlebars");
+// Sets handlebars as rendering engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
