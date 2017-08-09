@@ -29,6 +29,9 @@ module.exports = db => {
           // inserts new user into database
           db.TestTable.create(user).then(() => {
             return resolve(user);
+          }).catch(err => {
+            console.log('FAILED TO CREATE USER', user.email);
+            return reject(err);            
           });
         }).catch(err => {
           return reject("SERVER ERROR");
@@ -54,7 +57,7 @@ module.exports = db => {
           console.log("PASSWORD DOES NOT MATCH email");
           return resolve(false);
         }).catch(err => {
-          return reject("SERVER ERROR");
+          return reject(err);
         });
       }); // end of returned promise
     } // end of authFunct.localAuth

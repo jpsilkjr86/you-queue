@@ -35,43 +35,54 @@ passport.deserializeUser((obj, done) => {
 passport.use('local-signin', new LocalStrategy({
     passReqToCallback : true, //allows us to pass back the request to the callback
     usernameField: 'email' // changes default 'username' to be 'email' instead
-  }, (req, email, password, done) => {
-    authFunct.localAuth(email, password).then(user => {
-      if (user) {
-        console.log("LOGGED IN AS: " + user.email);
-        req.session.success = 'You are successfully logged in ' + user.email + '!';
-        done(null, user);
-      }
-      if (!user) {
-        console.log("COULD NOT LOG IN");
-        req.session.error = 'Could not log user in. Please try again.';
-        done(null, user);
-      }
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+	}, (req, email, password, done) => {
+		authFunct.localAuth(email, password).then(user => {
+			if (user) {
+			console.log("LOGGED IN AS: " + user.email);
+			req.session.success = 'You are successfully logged in ' + user.email + '!';
+			done(null, user);
+		}
+		if (!user) {
+			console.log("COULD NOT LOG IN");
+			req.session.error = 'Could not log user in. Please try again.';
+			done(null, user);
+		}
+		}).catch(err => {
+			console.log(err);
+			req.session.error = 'Server error.';
+			done();
+		});
+	}
 ));
 // Sets up sign-up LocalStrategy within Passport
 passport.use('local-signup', new LocalStrategy({
-    passReqToCallback : true, //allows us to pass back the request to the callback
-    usernameField: 'email' // changes default 'username' to be 'email' instead
-  }, (req, email, password, done) => {
-    authFunct.localRegNewUser(req.body).then(user => {
-      if (user) {
-        console.log("REGISTERED: " + user.email);
-        req.session.success = 'You are successfully registered and logged in ' + user.email + '!';
-        done(null, user);
-      }
-      if (!user) {
-        console.log("COULD NOT REGISTER");
-        req.session.error = 'That email is already in use, please try a different one.';
-        done(null, user);
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
+	passReqToCallback : true, //allows us to pass back the request to the callback
+	usernameField: 'email' // changes default 'username' to be 'email' instead
+	}, (req, email, password, done) => {
+	    authFunct.localRegNewUser(req.body).then(user => {
+			if (user) {
+				console.log("REGISTERED: " + user.email);
+				req.session.success = 'Successfully registered as ' + user.email + '!';
+				done(null, user);
+			}
+			if (!user) {
+				console.log("COULD NOT REGISTER");
+				req.session.error = 'That email is already in use. Please try a different one.';
+				done(null, user);
+			}
+	    }).catch((err) => {
+	    	if (err.errors[0].message) {
+	    		console.log(err.errors[0].message);
+	    		req.session.error = 'Invalid input on one or more values. Please try again.';
+	    		done();
+	    	}
+	    	else {
+	    		console.log(err);
+	    		req.session.error = 'Unable to create user.';
+	    		done();
+	    	}
+	    });
+	}
 ));
 
 // ================ Express Configuration ================
