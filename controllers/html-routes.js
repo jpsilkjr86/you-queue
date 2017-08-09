@@ -15,8 +15,18 @@ module.exports = app => {
 	});
 	// html route for queue dashboard page
 	app.get('/dashboard', (req, res) => {
-		// render handlebars according to object data
-		res.render('dashboard', {title: 'You-Queue Dashboard'});
+		// redirects to signin if no user is logged in
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to object data
+			res.render('dashboard', {
+				title: 'You-Queue Dashboard',
+				first_name: req.user.first_name,
+				company_name: req.user.company_name
+			});
+		}
 	});
 
 	// logs user out of site, deleting them from the session, and returns to homepage

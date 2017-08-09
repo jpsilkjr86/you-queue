@@ -4,7 +4,11 @@
             <div class="card-content">
                 <div class="card z-depth-2">
                     <div class="card-content black-text center-align">
-                        <span class="card-title">Title</span>
+                        {{#if company_name}}
+                        <span class="card-title">Queue for {{company_name}}</span>
+                        {{else}}
+                        <span class="card-title">Queue for {{first_name}}</span>
+                        {{/if}}
                         <div class="card-action center">
                             Some action
                         </div> <!-- end of card-action -->
