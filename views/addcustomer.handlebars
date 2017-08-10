@@ -1,11 +1,12 @@
 <div class="row">
     <div class="col s12">
         <div class="card z-depth-4">
-            <div class="card-content" style="padding: 30px 40px">
-                <form id="new-account" action="/user/new" method="post">
+            <div class="card-content" style="padding: 30px 40px 0 40px">
+                <form id="new-customer" action="/customer/add" method="post">
                 <!-- <form id="new-account"> -->
                     <div class="row">
                         <h5 class="center-align">Add Customer</h5>
+                        <p class="right"><em>*Required input</em></p>
                         <!-- Row (only one used so that columns stack properly on mobile screens) -->
                         <div class="row" style="margin-top: 20px">
                             <div class="input-field col s12 m6">
@@ -25,14 +26,15 @@
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">event</i>
-                                <select multiple>
-                                    <option value="" disabled selected>Choose one or more occasion.</option>
-                                    <option value="Birthday">Birthday</option>
-                                    <option value="Wedding Anniversary">Wedding Anniversary</option>
-                                    <option value="Family Gathering">Family Gathering</option>
-                                    <option value="Other">Other</option>
+                                <select multiple name="occasion" form="new-customer" required>
+                                    <option value="" disabled selected>*Choose one or more occasion.</option>
+                                    <option value="casual dining">Casual Dining</option>
+                                    <option value="birthday">Birthday</option>
+                                    <option value="wedding anniversary">Wedding Anniversary</option>
+                                    <option value="family gathering">Family Gathering</option>
+                                    <option value="other">Other</option>
                                 </select>
-                                <label for="last_name">*Occasion</label>
+                                <label for="occasion">*Occasion</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">account_circle</i>
@@ -49,6 +51,7 @@
                                 <input id="email-new" type="email" class="validate" required="required" name="email">
                                 <label for="email">Email</label>
                             </div>
+                            <button class="btn btn-large waves-effect waves-light right" type="submit">Submit</button>
                         </div> <!-- end of row -->
                     </div>
                 </form>
