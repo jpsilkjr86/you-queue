@@ -98,4 +98,21 @@ module.exports = (app, db) => {
 		}			
 	});
 
+	// html route for queue dashboard page
+	app.get('/dashboard2', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to results from query
+			db.TestTable.findAll({}).then(function(results) {
+				res.render('dashboards', {
+					title: 'You-Queue: Dashboard',
+					testtables: results,
+					user: req.user
+				});
+			});
+		}
+	});
+
 }
