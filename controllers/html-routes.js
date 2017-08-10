@@ -85,4 +85,17 @@ module.exports = (app, db) => {
 		res.render('index', {title: 'You-Queue: Index'});
 	});
 
+	app.get('/addcustomer', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to object data
+			res.render('addcustomer', {
+				title: 'You-Queue: Add Customer',
+				user: req.user
+			});
+		}			
+	});
+
 }
