@@ -16,7 +16,8 @@ module.exports = (app) => {
 	app.get('/testtable/all', (req, res) => {
 		db.TestTable.findAll({}).then(result => {
 			console.log(result);
-			res.json(result);
+			//res.json(result);
+			res.render("dashboard", { testtables: results });
 		}).catch(err => {
 			res.send(err);
 			console.log(err);
