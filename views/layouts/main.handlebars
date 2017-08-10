@@ -19,29 +19,34 @@
     <!-- Top Navbar with Logo -->
     <nav>
        <div class="nav-wrapper">
-            <a href="/" id="logo"><img src="/assets/images/brand.png" style="z-index: 500; position: relative;"></a>
-            <a href="#" data-activates="slide-out" class="button-collapse right hide-on-med-and-up"><i class="material-icons">menu</i></a>
-            {{#if user}}
-            <div class="brand-logo center" style="font-size: 18px">Welcome, {{user.first_name}}!</div>
-            <ul id="nav-mobile" class="right hide-on-small-only">
-                <li><a href="/dashboard">Queue Dashboard</a></li>
-                <li><a href="/logout">Log Out</a></li>
-            </ul>
-            <ul class="side-nav hide-on-med-and-up" id="slide-out">
-                <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
-                <li><a href="/dashboard">Queue Dashboard</a></li>
-                <li><a href="/logout">Log Out</a></li>
-            </ul>
-            {{else}}
-            <div class="brand-logo center" style="font-size: 18px">Welcome to You-Queue!</div>
-            <ul id="nav-mobile" class="right hide-on-small-only">
-                <li><a href="/signin">Sign In</a></li>
-            </ul>
-            <ul class="side-nav hide-on-med-and-up" id="slide-out">
-                <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
-                <li><a href="/signin">Sign In</a></li>
-            </ul>
-            {{/if}}
+            <!-- <div class="container"> -->
+                <a href="/" id="logo"><img src="/assets/images/brand_top.png" style="z-index: 500; position: relative;"></a>
+                <a href="#" data-activates="slide-out" class="button-collapse right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+                {{#if user}}
+                <div class="brand-logo center" style="font-size: 18px">Welcome, {{user.first_name}}!</div>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+                    <!-- <li><a href="/dashboard">Queue Dashboard</a></li> -->
+                    <li><a href="/addcustomer" class="btn-floating"><i class="material-icons red accent-1">add</i></a></li>
+                    <li><a href="/dashboard" class="btn-floating"><i class="material-icons red accent-1">dashboard</i></a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+                <ul class="side-nav hide-on-med-and-up" id="slide-out">
+                    <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
+                    <li><a href="/dashboard">Queue Dashboard</a></li>
+                    <li><a href="/addcustomer">Add Customer</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+                {{else}}
+                <div class="brand-logo center" style="font-size: 18px">Welcome to You-Queue!</div>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+                    <li><a href="/signin">Sign In</a></li>
+                </ul>
+                <ul class="side-nav hide-on-med-and-up" id="slide-out">
+                    <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
+                    <li><a href="/signin">Sign In</a></li>
+                </ul>
+                {{/if}}
+            <!-- </div>  -->
         </div>
     </nav>
         
