@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col s12">
         <div class="card z-depth-4">
-            <div class="card-content">
+            <div class="card-content" style="padding: 30px 40px">
                 <form id="new-account" action="/user/new" method="post">
                 <!-- <form id="new-account"> -->
                     <div class="row">
@@ -10,13 +10,13 @@
                         <div class="row" style="margin-top: 20px">
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">group</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
-                                <label for="last_name">*Party Name</label>
+                                <input id="party_name" type="text" class="validate" required="required" name="party_name">
+                                <label for="party_name">*Party Name</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">group</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
-                                <label for="last_name">*Party Size</label>
+                                <input id="party_size" type="number" class="validate" required="required" name="party_size">
+                                <label for="party_size">*Party Size</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">phone</i>
@@ -25,7 +25,13 @@
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">event</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
+                                <select multiple>
+                                    <option value="" disabled selected>Choose one or more occasion.</option>
+                                    <option value="Birthday">Birthday</option>
+                                    <option value="Wedding Anniversary">Wedding Anniversary</option>
+                                    <option value="Family Gathering">Family Gathering</option>
+                                    <option value="Other">Other</option>
+                                </select>
                                 <label for="last_name">*Occasion</label>
                             </div>
                             <div class="input-field col s12 m6">
@@ -38,7 +44,7 @@
                                 <input id="last_name" type="text" class="validate" name="last_name">
                                 <label for="last_name">Last Name</label>
                             </div>
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
                                 <input id="email-new" type="email" class="validate" required="required" name="email">
                                 <label for="email">Email</label>

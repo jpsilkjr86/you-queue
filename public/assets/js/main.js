@@ -3,6 +3,8 @@ $(document).ready(function(){
 	$('.modal').modal();
 	// activates collapsible side nav
 	$(".button-collapse").sideNav();
+	// activates any materialize select feature
+	$('select').material_select();
 
 	// // captures user login input
 	// $(document).on('submit', '#sign-in', function(e){
