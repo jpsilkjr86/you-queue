@@ -106,7 +106,7 @@ module.exports = (app, db) => {
 		else {
 			// render handlebars according to results from query
 			db.TestTable.findAll({}).then(function(results) {
-				res.render('dashboards', {
+				res.render('dashboard2', {
 					title: 'You-Queue: Dashboard',
 					testtables: results,
 					user: req.user
