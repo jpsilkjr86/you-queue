@@ -19,10 +19,8 @@ testData.push({
 	company_name: 'def'
 });
 
-const db = require('../models');
-
 // exports is a function that takes in app as an argument
-module.exports = app => {
+module.exports = (app, db) => {
 	// html route for index
 	app.get('/', (req, res) => {
 		// render handlebars according to object data
@@ -39,20 +37,20 @@ module.exports = app => {
 			user: req.user
 		});
 	});
-	// html route for queue dashboard page
-	app.get('/dashboard', (req, res) => {
-		// redirects to signin if no user is logged in
-		if (!req.user) {
-			res.redirect('/signin');
-		}
-		else {
-			// render handlebars according to object data
-			res.render('dashboard', {
-				title: 'You-Queue Dashboard',
-				user: req.user
-			});
-		}
-	});
+	// // html route for queue dashboard page
+	// app.get('/dashboard', (req, res) => {
+	// 	// redirects to signin if no user is logged in
+		// if (!req.user) {
+		// 	res.redirect('/signin');
+		// }
+		// else {
+		// 	// render handlebars according to object data
+		// 	res.render('dashboard', {
+		// 		title: 'You-Queue Dashboard',
+		// 		user: req.user
+		// 	});
+		// }
+	// });
 
 	// logs user out of site, deleting them from the session, and returns to homepage
 	app.get('/logout', (req, res) => {
@@ -67,10 +65,19 @@ module.exports = app => {
 
 	// html route for queue dashboard page
 	app.get('/dashboard', (req, res) => {
-		// render handlebars according to object data
-		db.TestTable.findAll({}).then(function(results) {
-		res.render('dashboard', {title: 'You-Queue: Dashboard', testtables: results});
-		});
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to results from query
+			db.TestTable.findAll({}).then(function(results) {
+				res.render('dashboard', {
+					title: 'You-Queue: Dashboard',
+					testtables: results,
+					user: req.user
+				});
+			});
+		}
 	});
 
 	app.get('/index', (req, res) => {

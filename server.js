@@ -130,7 +130,7 @@ db.sequelize.sync().then(() => {
 	app.listen(port, () => {
 		console.log('App listening on port ' + port);
 		// sets up routes
-		require('./controllers/html-routes.js')(app);
+		require('./controllers/html-routes.js')(app, db);
 		require('./controllers/api-routes.js')(app, passport);
 	});
 }).catch(err => {
