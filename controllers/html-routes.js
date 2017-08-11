@@ -36,7 +36,8 @@ module.exports = (app, db) => {
 		// render handlebars according to object data
 		res.render('signin', {
 			title: 'You-Queue: Welcome!',
-			user: req.user
+			user: req.user,
+			scriptLink: 'signin.js'
 		});
 	});
 
@@ -67,7 +68,8 @@ module.exports = (app, db) => {
 				res.render('dashboard2', {
 					title: 'You-Queue: Dashboard',
 					customers: results,
-					user: req.user
+					user: req.user,
+					scriptLink: 'dashboard.js'
 				});
 			});
 		}
@@ -81,7 +83,8 @@ module.exports = (app, db) => {
 			// render handlebars according to object data
 			res.render('addcustomer', {
 				title: 'You-Queue: Add Customer',
-				user: req.user
+				user: req.user,
+				scriptLink: 'addcustomer.js'
 			});
 		}			
 	});
