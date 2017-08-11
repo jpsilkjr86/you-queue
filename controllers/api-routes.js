@@ -60,3 +60,17 @@ module.exports = (app, db, passport) => {
 		}
 	});
 };
+
+
+
+// // post request for sending sms
+// app.post("/sendtext", function(req, res) {
+//   // authenticate user
+
+//   // save phone number from req.
+//   let phone_number = req.body.phone_number;
+
+//   // call function here
+
+//   res.redirect('/someurl');
+// });
