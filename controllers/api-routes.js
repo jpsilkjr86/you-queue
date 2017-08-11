@@ -59,6 +59,25 @@ module.exports = (app, db, passport) => {
 			});
 		}
 	});
+
+
+	// route for cancelling a customer
+	app.post('/customer/cancel', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+			// display message saying that form submission failed, plz sign in
+		}
+		else {
+			db.CustTable.update( { active: req.body.active } , {where: {id: req.body.id}}).then(result => {
+				console.log("CUSTOMER ACTIVE STATUS SUCCESSFULLY UPDATED");
+				res.send("CUSTOMER ACTIVE STATUS SUCCESSFULLY UPDATED");
+			}).catch(err => {
+				console.log('FAILED TO UPDATE CUSTOMER ACTIVE STATUS');
+				// set session error message
+				res.redirect('/');
+			});
+		}
+	});
 };
 
 
