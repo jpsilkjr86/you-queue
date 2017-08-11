@@ -10,8 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     	type: DataTypes.STRING,
     	allowNull: false,
     	validate: {
-        // accepts only allows letters and spaces 
-        is: /^[a-zA-Z\s]*$/,
+        // accepts only allows letters and spaces
+        is: /^[a-z\d\s]+$/i,
 	    	under140: (str) => {
 	    		if (str.length > 140 || str.length < 1) {
 	    			throw new Error('Must be between 1 and 140 characters!');
