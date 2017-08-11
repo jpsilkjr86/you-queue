@@ -10,3 +10,8 @@ main {
     flex: 1 0 auto;
 }
 
+.customer-row {
+	font-size: 11px;
+	height: 130px;
+}
+
