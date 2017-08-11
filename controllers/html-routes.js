@@ -23,11 +23,13 @@ testData.push({
 module.exports = (app, db) => {
 	// html route for index
 	app.get('/', (req, res) => {
-		// render handlebars according to object data
-		res.render('index', {
-			title: 'You-Queue: Home',
-			user: req.user
-		});
+		if (req.user) {
+			console.log('Logged in as user ' + req.user.email + '. Redirecting to dashboard...');
+			res.redirect('/dashboard');
+		} else {
+			console.log('No logged-in user found. Redirecting to signin page...');
+			res.redirect('/signin');
+		}
 	});
 	// html route for login page
 	app.get('/signin', (req, res) => {
@@ -37,20 +39,6 @@ module.exports = (app, db) => {
 			user: req.user
 		});
 	});
-	// // html route for queue dashboard page
-	// app.get('/dashboard', (req, res) => {
-	// 	// redirects to signin if no user is logged in
-		// if (!req.user) {
-		// 	res.redirect('/signin');
-		// }
-		// else {
-		// 	// render handlebars according to object data
-		// 	res.render('dashboard', {
-		// 		title: 'You-Queue Dashboard',
-		// 		user: req.user
-		// 	});
-		// }
-	// });
 
 	// logs user out of site, deleting them from the session, and returns to homepage
 	app.get('/logout', (req, res) => {
@@ -62,7 +50,6 @@ module.exports = (app, db) => {
 		}
 		res.redirect('/');
 	});
-
 	// html route for queue dashboard page
 	app.get('/dashboard', (req, res) => {
 		if (!req.user) {
@@ -70,21 +57,22 @@ module.exports = (app, db) => {
 		}
 		else {
 			// render handlebars according to results from query
-			db.TestTable.findAll({}).then(function(results) {
-				res.render('dashboard', {
+			// db.CustTable.findAll({where:{restaurant_id: req.body.id}}).then(function(results) {
+			db.CustTable.findAll({
+				where: {
+					restaurant_id: req.user.id,
+					active: true
+				}
+			}).then(results => {
+				res.render('dashboard2', {
 					title: 'You-Queue: Dashboard',
-					testtables: results,
+					customers: results,
 					user: req.user
 				});
 			});
 		}
 	});
-
-	app.get('/index', (req, res) => {
-		// render handlebars according to object data
-		res.render('index', {title: 'You-Queue: Index'});
-	});
-
+	// html route for add customer page
 	app.get('/addcustomer', (req, res) => {
 		if (!req.user) {
 			res.redirect('/signin');
@@ -97,22 +85,4 @@ module.exports = (app, db) => {
 			});
 		}			
 	});
-
-	// html route for queue dashboard page
-	app.get('/dashboard2', (req, res) => {
-		if (!req.user) {
-			res.redirect('/signin');
-		}
-		else {
-			// render handlebars according to results from query
-			db.TestTable.findAll({}).then(function(results) {
-				res.render('dashboard2', {
-					title: 'You-Queue: Dashboard',
-					testtables: results,
-					user: req.user
-				});
-			});
-		}
-	});
-
 }
