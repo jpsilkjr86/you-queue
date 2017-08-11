@@ -1,67 +1,56 @@
-// imports sequelize db object and its models
-const db = require('../models');
-// exports as a function which takes in express app paramters
-module.exports = (app) => {
-	// route for adding data to a test api route
-	app.post('/testtable/addrow', (req, res) => {
-		db.TestTable.create({test_name: req.body.test_name}).then(result => {
-			console.log(result);
-			res.send(result);
-		}).catch(err => {
-			res.send(err);
-			console.log(err);
-		});
-	});
-	// route for getting data from test table api route
-	app.get('/testtable/all', (req, res) => {
-		db.TestTable.findAll({}).then(result => {
-			console.log(result);
-			//res.json(result);
-			res.render("dashboard", { testtables: results });
-		}).catch(err => {
-			res.send(err);
-			console.log(err);
-		});
-	});
-	// route for posting user login data
-	app.post('/user/login', (req, res) => {
-		// console.log(req.body);
-		// instantiates local userData as block-scoped object
-		let userData = {
-			email: req.body.email,
-			password: req.body.password
-		};
-		console.log(userData);
-		// checks to see if userData is in the database
-		db.TestTable.findOne({where: userData}).then(result => {
-			console.log(result);
-			res.json(result);
-		}).catch(err => {
-			res.send('Email and password combination do not match our records.');
-			console.log('Email and password combination do not match our records.');
-		});
-	});
-	// route for posting user login data
-	app.post('/user/new', (req, res) => {
-		// console.log(req.body);
-		// instantiates local newUserData as block-scoped object
-		let newUserData = {
-			first_name: req.body.first_name,
-			last_name: req.body.last_name,
-			company_name: req.body.company_name,
-			phone_number: req.body.phone_number,
-			email: req.body.email,
-			password: req.body.password
-		};
-		console.log(newUserData);
-		// checks to see if newUserData is in the database
-		db.TestTable.create(newUserData).then(result => {
-			console.log('User successfully created!');
-			res.json('User successfully created!');
-		}).catch(err => {
-			res.send(err);
-			console.log(err);
-		});
+// exports as a function which takes in express app and passport parameters
+module.exports = (app, db, passport) => {
+	// route for signing up new users. authenticates with passport local strategy 'local-signup'
+	app.post('/user/new', passport.authenticate('local-signup', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/signin'
+	}));
+	// route for signing in. authenticates with passport local strategy 'local-signin'
+	app.post('/user/signin', passport.authenticate('local-signin', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/signin'
+	}));
+	// route for adding new customers
+	app.post('/customer/add', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+			// display message saying that form submission failed, plz sign in
+		}
+		else {
+			// if occasion is array, joins as string
+			let occasion;
+			if (Array.isArray(req.body.occasion)) {
+				occasion = req.body.occasion.join();
+			} else {
+				occasion = req.body.occasion;
+			}
+			// instantiates locally scoped customer object, values determined by 
+			// req.body, req.user and some other defaults.
+			const customer = {
+				party_name: req.body.party_name,
+				party_size: req.body.party_size,
+				phone_number: req.body.phone_number,
+				email: req.body.email,
+				occasion: occasion,
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				restaurant_id: req.user.id,
+				active: true,
+				arrived_table: false,
+				alerted_sms: false
+			};
+			console.log(customer);
+			// attempts to add to database
+			db.CustTable.create(customer).then(result => {
+				console.log(result);
+				// set session success message
+				res.redirect('/dashboard');
+			}).catch(err => {
+				console.log(err);
+				// set session error
+				res.redirect('/dashboard');
+			});
+		}
 	});
 };
 

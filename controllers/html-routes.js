@@ -19,33 +19,70 @@ testData.push({
 	company_name: 'def'
 });
 
-const db = require('../models');
-
 // exports is a function that takes in app as an argument
-module.exports = function (app) {
+module.exports = (app, db) => {
 	// html route for index
 	app.get('/', (req, res) => {
-		// render according to arrays
-		res.render('index', {title: 'You-Queue: Home'});
+		if (req.user) {
+			console.log('Logged in as user ' + req.user.email + '. Redirecting to dashboard...');
+			res.redirect('/dashboard');
+		} else {
+			console.log('No logged-in user found. Redirecting to signin page...');
+			res.redirect('/signin');
+		}
 	});
-
 	// html route for login page
-	app.get('/login', (req, res) => {
-		// render according to arrays
-		res.render('login', {title: 'You-Queue: Welcome!'});
-	});
-
-	// html route for queue dashboard page
-	app.get('/dashboard', (req, res) => {
+	app.get('/signin', (req, res) => {
 		// render handlebars according to object data
-		db.TestTable.findAll({}).then(function(results) {
-		res.render('dashboard', {title: 'You-Queue: Dashboard', testtables: results});
+		res.render('signin', {
+			title: 'You-Queue: Welcome!',
+			user: req.user
 		});
 	});
 
-	app.get('/index', (req, res) => {
-		// render handlebars according to object data
-		res.render('index', {title: 'You-Queue: Index'});
+	// logs user out of site, deleting them from the session, and returns to homepage
+	app.get('/logout', (req, res) => {
+		if (req.user) {
+			let name = req.user.first_name;
+			console.log("LOGGING OUT " + name);
+			req.logout();
+			req.session.notice = "Log out successful. Please visit us again, " + name + "!";
+		}
+		res.redirect('/');
 	});
-
+	// html route for queue dashboard page
+	app.get('/dashboard', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to results from query
+			// db.CustTable.findAll({where:{restaurant_id: req.body.id}}).then(function(results) {
+			db.CustTable.findAll({
+				where: {
+					restaurant_id: req.user.id,
+					active: true
+				}
+			}).then(results => {
+				res.render('dashboard2', {
+					title: 'You-Queue: Dashboard',
+					customers: results,
+					user: req.user
+				});
+			});
+		}
+	});
+	// html route for add customer page
+	app.get('/addcustomer', (req, res) => {
+		if (!req.user) {
+			res.redirect('/signin');
+		}
+		else {
+			// render handlebars according to object data
+			res.render('addcustomer', {
+				title: 'You-Queue: Add Customer',
+				user: req.user
+			});
+		}			
+	});
 }

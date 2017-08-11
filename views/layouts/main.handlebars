@@ -15,25 +15,71 @@
     <script src="https://use.fontawesome.com/556453154e.js"></script>
 </head>
 <body>
-    <!-- Right-Floating Profile Dropdown Menu -->
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="https://www.linkedin.com/in/michael-tolmie-83527537/">Michael</a></li>
-        <li><a href="https://www.linkedin.com/in/john-silkey-jr/">John</a></li>
-        <li><a href="https://www.linkedin.com/in/tarmin-sidharta/">Tarmin</a></li>
-    </ul>
+    
     <!-- Top Navbar with Logo -->
     <nav>
        <div class="nav-wrapper">
-            <div id="logo"> <img src="/assets/images/brand.png">
-                <ul class="right hide-on-down">
-                    <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons left">perm_identity</i></a></li>
+            <!-- <div class="container"> -->
+                <a href="/" id="logo"><img src="/assets/images/brand_top.png" style="z-index: 500; position: relative;"></a>
+                <a href="#" data-activates="slide-out" class="button-collapse right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+                {{#if user}}
+                <div class="brand-logo center" style="font-size: 18px">Welcome, {{user.first_name}}!</div>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+                    <!-- <li><a href="/dashboard">Queue Dashboard</a></li> -->
+                    <li><a href="/addcustomer" class="btn-floating"><i class="material-icons red accent-1">add</i></a></li>
+                    <li><a href="/dashboard" class="btn-floating"><i class="material-icons red accent-1">dashboard</i></a></li>
+                    <li><a href="/logout">Log Out</a></li>
                 </ul>
-            </div>
+                <ul class="side-nav hide-on-med-and-up" id="slide-out">
+                    <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
+                    <li><a href="/dashboard">Queue Dashboard</a></li>
+                    <li><a href="/addcustomer">Add Customer</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+                {{else}}
+                <div class="brand-logo center" style="font-size: 18px">Welcome to You-Queue!</div>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+                    <li><a href="/signin">Sign In</a></li>
+                </ul>
+                <ul class="side-nav hide-on-med-and-up" id="slide-out">
+                    <li><img src="/assets/images/brand_small.png" style="margin: 10px 0 0 30px "></li>
+                    <li><a href="/signin">Sign In</a></li>
+                </ul>
+                {{/if}}
+            <!-- </div>  -->
         </div>
     </nav>
+        
     <div class="container">
         {{{ body }}}
-    </div>    
+    </div>   
+
+
+    <footer class="page-footer light-blue darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col s6 white-text">
+            <h5>Connect with the contributors:</h5>
+            <ul>
+                <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/michael-tolmie-83527537/">Michael</a></li>
+                <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/john-silkey-jr/">John</a></li>
+                <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/tarmin-sidharta/">Tarmin</a></li>
+            </ul> 
+          </div>
+          <div class="col s3 offset-s3 ">
+            <h5 class="white-text">Links</h5>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2017 Copyright John, Michael and Tarmin
+        
+        </div>
+      </div>
+    </footer>
+            
+             
     <!-- JavaScript Links: jquery, materialize, custom -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
