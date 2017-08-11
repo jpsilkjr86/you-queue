@@ -17,6 +17,8 @@ module.exports = (app, db, passport) => {
 			// display message saying that form submission failed, plz sign in
 		}
 		else {
+			console.log('User Data:');
+			console.log(req.user);
 			// if occasion is array, joins as string
 			let occasion;
 			if (Array.isArray(req.body.occasion)) {
