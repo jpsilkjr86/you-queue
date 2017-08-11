@@ -5,7 +5,7 @@
                 {{#if customers}}
                 <ul class="collection">
                     {{#each customers}}
-                    <li class="collection-item dismissable">
+                    <li class="collection-item dismissable customer-row" data-id="{{this.id}}">
                         <div class="row">
                             <div class="col s2">
                                 <a class="btn-floating sms-btn" data-id="{{this.id}}" data-alerted_sms="{{this.alerted_sms}}"><i class="material-icons">phonelink_ring</i></a>
