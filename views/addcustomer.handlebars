@@ -1,22 +1,23 @@
 <div class="row">
     <div class="col s12">
         <div class="card z-depth-4">
-            <div class="card-content">
-                <form id="new-account" action="/user/new" method="post">
+            <div class="card-content" style="padding: 30px 40px 0 40px">
+                <form id="new-customer" action="/customer/add" method="post">
                 <!-- <form id="new-account"> -->
                     <div class="row">
                         <h5 class="center-align">Add Customer</h5>
+                        <p class="right"><em>*Required input</em></p>
                         <!-- Row (only one used so that columns stack properly on mobile screens) -->
                         <div class="row" style="margin-top: 20px">
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">group</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
-                                <label for="last_name">*Party Name</label>
+                                <input id="party_name" type="text" class="validate" required="required" name="party_name">
+                                <label for="party_name">*Party Name</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">group</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
-                                <label for="last_name">*Party Size</label>
+                                <input id="party_size" type="number" class="validate" required="required" name="party_size">
+                                <label for="party_size">*Party Size</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">phone</i>
@@ -25,8 +26,15 @@
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">event</i>
-                                <input id="last_name" type="text" class="validate" required="required" name="last_name">
-                                <label for="last_name">*Occasion</label>
+                                <select multiple name="occasion" form="new-customer" required>
+                                    <option value="" disabled selected>*Choose one or more occasion.</option>
+                                    <option value="casual dining">Casual Dining</option>
+                                    <option value="birthday">Birthday</option>
+                                    <option value="wedding anniversary">Wedding Anniversary</option>
+                                    <option value="family gathering">Family Gathering</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="occasion">*Occasion</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">account_circle</i>
@@ -38,11 +46,12 @@
                                 <input id="last_name" type="text" class="validate" name="last_name">
                                 <label for="last_name">Last Name</label>
                             </div>
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
                                 <input id="email-new" type="email" class="validate" required="required" name="email">
                                 <label for="email">Email</label>
                             </div>
+                            <button class="btn btn-large waves-effect waves-light right" type="submit">Submit</button>
                         </div> <!-- end of row -->
                     </div>
                 </form>

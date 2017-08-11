@@ -131,7 +131,7 @@ db.sequelize.sync().then(() => {
 		console.log('App listening on port ' + port);
 		// sets up routes
 		require('./controllers/html-routes.js')(app, db);
-		require('./controllers/api-routes.js')(app, passport);
+		require('./controllers/api-routes.js')(app, db, passport);
 	});
 }).catch(err => {
 	console.log('Error: Failed to establish connection with MySQL.');
