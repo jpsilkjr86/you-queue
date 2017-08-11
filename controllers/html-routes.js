@@ -57,20 +57,37 @@ module.exports = (app, db) => {
 			res.redirect('/signin');
 		}
 		else {
-			// render handlebars according to results from query
-			// db.CustTable.findAll({where:{restaurant_id: req.body.id}}).then(function(results) {
-			db.CustTable.findAll({
+			// instantiates locally scoped variable
+			let restaurant_id;
+			// gets restaurant_id by querying user data
+			db.TestTable.findOne({
 				where: {
-					restaurant_id: req.user.id,
-					active: true
+					email: req.user.email
 				}
+			}).then(result => {
+				// saves restaurant id as result.id (of user)
+				restaurant_id = result.id;
+				// returns query of all customers who went to a restaurant and
+				// who are currently active. continues promise chain.
+				return db.CustTable.findAll({
+					where: {
+						restaurant_id: restaurant_id,
+						active: true
+					}
+				});
 			}).then(results => {
+				// render handlebars according to results from query
 				res.render('dashboard2', {
 					title: 'You-Queue: Dashboard',
 					customers: results,
 					user: req.user,
 					scriptLink: 'dashboard.js'
 				});
+			}).catch(err => {
+				console.log('ERROR QUERYING DATABASE FOR CUSTOMER DATA. LOGGING OFF..')
+				console.log(err);
+				// sets session error message
+				res.redirect('/logout');
 			});
 		}
 	});
