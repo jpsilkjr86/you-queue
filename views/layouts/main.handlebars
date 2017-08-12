@@ -15,16 +15,17 @@
     <script src="https://use.fontawesome.com/556453154e.js"></script>
 </head>
 <body>
+    <!-- <a href="/" id="logo"><img src="/assets/images/brand_smaller.png" style="z-index: 50; position: absolute; left: 10px; top: 10px"></a> -->
     <!-- header -->
     <header>
         <!-- Top Navbar with Logo -->
         <nav>
            <div class="nav-wrapper">
                 <!-- <div class="container"> -->
-                    <a href="/" id="logo"><img src="/assets/images/brand_top.png" style="z-index: 50; position: relative;"></a>
+                    <a href="/" id="logo"><img src="/assets/images/brand_smaller.png" style="z-index: 50; position: relative; margin-top: 5px; margin-left: 5px"></a>
                     <a href="#" data-activates="slide-out" class="button-collapse right hide-on-med-and-up"><i class="material-icons">menu</i></a>
                     {{#if user}}
-                    <div class="brand-logo center" style="font-size: 18px">Welcome, {{user.first_name}}!</div>
+                    <div class="brand-logo center" style="font-size: 13px">Welcome, {{user.first_name}}!</div>
                     <ul id="nav-mobile" class="right hide-on-small-only">
                         <!-- <li><a href="/dashboard">Queue Dashboard</a></li> -->
                         <li><a href="/addcustomer" class="btn-floating"><i class="material-icons red accent-1">add</i></a></li>
@@ -38,7 +39,7 @@
                         <li><a href="/logout">Log Out</a></li>
                     </ul>
                     {{else}}
-                    <div class="brand-logo center" style="font-size: 18px">Welcome to You-Queue!</div>
+                    <div class="brand-logo center" style="font-size: 18px">WELCOME</div>
                     <ul id="nav-mobile" class="right hide-on-small-only">
                         <li><a href="/signin">Sign In</a></li>
                     </ul>
@@ -73,7 +74,7 @@
     <footer class="page-footer light-blue darken-4">
         <div class="container">
             <div class="row">
-                <div class="col s6 white-text">
+                <div class="col s12 m6 white-text">
                     <h5>Connect with the contributors:</h5>
                     <ul>
                         <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/michael-tolmie-83527537/">Michael</a></li>
@@ -81,7 +82,7 @@
                         <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/tarmin-sidharta/">Tarmin</a></li>
                     </ul> 
                 </div>
-                <div class="col s3 offset-s3 white-text">
+                <div class="col s12 m3 offset-m3 white-text">
                     <h5>Appreciate Donations on Patreon!</h5>
                     <p>Future Link Here</p>
                 </div>
