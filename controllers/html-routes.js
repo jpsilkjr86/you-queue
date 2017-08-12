@@ -28,8 +28,8 @@ module.exports = (app, db) => {
 		if (req.user) {
 			let name = req.user.first_name;
 			console.log("LOGGING OUT " + name);
+			req.session.success = "Log out successful! Please visit us again, " + name + "!";
 			req.logout();
-			req.session.notice = "Log out successful. Please visit us again, " + name + "!";
 		}
 		res.redirect('/');
 	});
@@ -69,8 +69,9 @@ module.exports = (app, db) => {
 					scriptLink: 'dashboard.js'
 				});
 			}).catch(err => {
-				console.log('ERROR QUERYING DATABASE FOR CUSTOMER DATA. LOGGING OFF..')
+				console.log('ERROR QUERYING DATABASE FOR CUSTOMER DATA. LOGGING OFF..');
 				console.log(err);
+				req.session.error = "Server error - logging off. Please try again later.";
 				// sets session error message
 				res.redirect('/logout');
 			});
