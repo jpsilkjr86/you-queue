@@ -7,7 +7,8 @@ const express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local');
+    LocalStrategy = require('passport-local'),
+    bcrypt = require('bcryptjs'); // for encryption
 
 // sets up express app
 const app = express();
@@ -36,21 +37,34 @@ passport.use('local-signin', new LocalStrategy({
     passReqToCallback : true, //allows us to pass back the request to the callback
     usernameField: 'email' // changes default 'username' to be 'email' instead
 	}, (req, email, password, done) => {
-		authFunct.localAuth(email, password).then(user => {
-			if (user) {
-			console.log("LOGGED IN AS: " + user.email);
-			req.session.success = 'You are successfully logged in ' + user.email + '!';
-			done(null, user);
-		}
-		if (!user) {
-			console.log("COULD NOT LOG IN");
-			req.session.notice = 'Could not log user in. Please try again.';
-			done(null, user);
-		}
+		// checks database for user by email
+		db.TestTable.findOne({where: {'email' : email}}).then(user => {
+			// if no result is found, return done(null, false), set session msg
+			if (user == null) {
+				console.log("USER NOT FOUND:", email);
+				req.session.notice = 'No user exists with that email address.'
+								+ ' Please try again or create a new account.';
+				return done(null, false);
+			}
+			console.log("FOUND USER: " + user.email);
+			// saves encrypted password as locally scoped variable
+			const hash = user.password;
+			// uses bcrypt to see if password matches hash. if so, returns done(null, user)
+			if (bcrypt.compareSync(password, hash)) {
+				console.log("PASSWORD MATCHED!");
+				console.log("LOGGED IN AS: " + user.email);
+				req.session.success = 'You are successfully logged in as ' + user.email + '!';
+				return done(null, user);
+			}
+			// if strategy reaches this point, it must mean the password doesn't match
+			console.log("PASSWORD DOESN'T MATCH");
+			req.session.notice = 'Password is incorrect. Please try again.';
+			return done(null, false);
 		}).catch(err => {
-			console.log(err);
+			// sends and returns error if database throws an error
+			console.log("SERVER ERROR");
 			req.session.error = 'Server error.';
-			done(null, user);
+			return done(err);
 		});
 	}
 ));

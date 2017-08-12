@@ -40,9 +40,13 @@ module.exports = db => {
     }, // end of authFunct.localRegNewUser
     // local strategy authentication - checks if user exists in database and if password matches
     localAuth: (email, password) => {
+      // returns promise. if email and password match, resolves with user result.
+      // if email exists but password doesnt match, resolves with true value.
+      // if email doesn't exist, resolves with false.
       return new Promise ((resolve, reject) => {
         // checks database for user by email
         db.TestTable.findOne({where: {'email' : email}}).then(result => {
+          // if no result is found, send back user=false, pwMatch=false
           if (result == null) {
             console.log("USER NOT FOUND:", email);
             return resolve(false);
@@ -52,11 +56,13 @@ module.exports = db => {
           const hash = result.password;
           // uses bcrypt to see if password matches hash. if so, promise resolves with result sent back.
           if (bcrypt.compareSync(password, hash)) {
+            console.log("PASSWORD MATCHED!");
             return resolve(result);
           }
-          console.log("PASSWORD DOES NOT MATCH email");
-          return resolve(false);
+          console.log("PASSWORD DOES NOT MATCH.");
+          return resolve(true);
         }).catch(err => {
+          console.log("SERVER ERROR");
           return reject(err);
         });
       }); // end of returned promise
