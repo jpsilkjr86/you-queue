@@ -13,10 +13,23 @@ $(document).ready(function(){
 
 	// activates collapsible side nav
 	$(".button-collapse").sideNav();
-	
-    // functionality for pressing cancel to cancel a user (sets active status to false)
-	$(document).on('click', '.cancel-btn', function () {
 
+	// functionality for alerted_sms
+	$(document).on('click', '.sms-btn', function () {
+		
+		$.post('/customer/alerted', {
+			alerted_sms: true, 
+			id: $(this).attr('data-id')
+		}).done(function(data) {
+		 	console.log(data);
+		
+		}).catch(function(err) {
+			console.log(err);
+		});
+	});
+
+    // functionality for cancelling customer
+	$(document).on('click', '.cancel-btn', function () {
 		$.post('/customer/cancel', {
 			active: false, 
 			id: $(this).attr('data-id')
@@ -27,11 +40,27 @@ $(document).ready(function(){
 			console.log(err);
 		});
 	});
+
 	// when customer row is dismissed, sends ajax request to cancel (set active to false)
 	$('.customer-row').bind('remove', function () {
 		// removing element from the DOM triggers ajax cancel request
 		$.post('/customer/cancel', {
-			active: false, 
+			active: false,  
+			id: $(this).attr('data-id')
+		}).done(function(data) {
+		 	console.log(data);
+		
+		}).catch(function(err) {
+			console.log(err);
+		});
+	});
+
+	// functionality for arrived table
+	$(document).on('click', '.arrived-btn', function () {
+		
+		$.post('/customer/arrived', {
+			arrived_table: true, 
+			active: false,
 			id: $(this).attr('data-id')
 		}).done(function(data) {
 		 	console.log(data);
@@ -41,4 +70,3 @@ $(document).ready(function(){
 		});
 	});
 });
-
