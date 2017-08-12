@@ -38,7 +38,7 @@ passport.use('local-signin', new LocalStrategy({
     usernameField: 'email' // changes default 'username' to be 'email' instead
 	}, (req, email, password, done) => {
 		// checks database for user by email
-		db.TestTable.findOne({where: {'email' : email}}).then(user => {
+		db.UserTable.findOne({where: {'email' : email}}).then(user => {
 			// if no result is found, return done(null, false), set session msg
 			if (user == null) {
 				console.log("USER NOT FOUND:", email);
@@ -82,18 +82,18 @@ passport.use('local-signup', new LocalStrategy({
 			if (!user) {
 				console.log("COULD NOT REGISTER");
 				req.session.notice = 'That email is already in use. Please try a different one.';
-				done(null, user);
+				done(null, false);
 			}
 	    }).catch((err) => {
-	    	if (err.errors[0].message) {
+	    	if (err.errors[0]) {
 	    		console.log(err.errors[0].message);
 	    		req.session.notice = 'Invalid input on one or more values. Please try again.';
-	    		done();
+	    		done(null, false);
 	    	}
 	    	else {
 	    		console.log(err);
 	    		req.session.error = 'Unable to create user.';
-	    		done();
+	    		done(null, false);
 	    	}
 	    });
 	}

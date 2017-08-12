@@ -1,24 +1,6 @@
 // imports path npm
 const path = require('path');
 
-const testData = [];
-testData.push({
-	first_name: 'joe',
-	last_name: 'doe',
-	email: 'joedoe@a.com',
-	password: 'a',
-	phone_number: 123,
-	company_name: 'abc'
-});
-testData.push({
-	first_name: 'paul',
-	last_name: 'poe',
-	email: 'paulpoe@a.com',
-	password: 'b',
-	phone_number: 456,
-	company_name: 'def'
-});
-
 // exports is a function that takes in app as an argument
 module.exports = (app, db) => {
 	// html route for index
@@ -60,7 +42,7 @@ module.exports = (app, db) => {
 			// instantiates locally scoped variable
 			let restaurant_id;
 			// gets restaurant_id by querying user data
-			db.TestTable.findOne({
+			db.UserTable.findOne({
 				where: {
 					email: req.user.email
 				}

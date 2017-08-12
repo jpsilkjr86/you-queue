@@ -10,7 +10,7 @@ module.exports = db => {
       // returns new Promise for thenability
       return new Promise ((resolve, reject) => {
         // first searches to see if email exists in database
-        db.TestTable.findOne({where: {email: userData.email}}).then(result => {
+        db.UserTable.findOne({where: {email: userData.email}}).then(result => {
           if (result != null) {
             console.log("USER ALREADY EXISTS:", userData.email);
             return resolve(false);
@@ -27,14 +27,16 @@ module.exports = db => {
           };
           console.log("CREATING USER:", user.email);
           // inserts new user into database
-          db.TestTable.create(user).then(() => {
+          db.UserTable.create(user).then(() => {
             return resolve(user);
           }).catch(err => {
+            console.log(err);
             console.log('FAILED TO CREATE USER', user.email);
             return reject(err);            
           });
         }).catch(err => {
-          return reject("SERVER ERROR");
+          console.log(err);
+          return reject(err);
         });
       }); // end of returned promise
     }, // end of authFunct.localRegNewUser
@@ -45,7 +47,7 @@ module.exports = db => {
       // if email doesn't exist, resolves with false.
       return new Promise ((resolve, reject) => {
         // checks database for user by email
-        db.TestTable.findOne({where: {'email' : email}}).then(result => {
+        db.UserTable.findOne({where: {'email' : email}}).then(result => {
           // if no result is found, send back user=false, pwMatch=false
           if (result == null) {
             console.log("USER NOT FOUND:", email);

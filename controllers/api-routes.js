@@ -31,7 +31,7 @@ module.exports = (app, db, passport) => {
 				occasion = req.body.occasion;
 			}
 			// gets restaurant_id by querying user data
-			db.TestTable.findOne({where: {email: req.user.email}}).then(result => {
+			db.UserTable.findOne({where: {email: req.user.email}}).then(result => {
 				// saves restaurant id as result.id (of user)
 				restaurant_id = result.id;
 				// instantiates locally scoped customer object, values determined by 
@@ -157,17 +157,3 @@ module.exports = (app, db, passport) => {
 
 
 };
-
-
-
-// // post request for sending sms
-// app.post("/sendtext", function(req, res) {
-//   // authenticate user
-
-//   // save phone number from req.
-//   let phone_number = req.body.phone_number;
-
-//   // call function here
-
-//   res.redirect('/someurl');
-// });
