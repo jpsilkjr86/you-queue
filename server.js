@@ -17,8 +17,6 @@ const port = process.env.PORT || 3000;
 // ================ Custom Modules ================
 // imports sequelize db object for initializing database
 const db = require('./models');
-// custom helper functions for user authentication
-const authFunct = require('./custom_modules/authentication-functions.js')(db);
 
 // ================ Passport ================
 // Passport session setup
@@ -65,39 +63,67 @@ passport.use('local-signin', new LocalStrategy({
 			console.log("SERVER ERROR");
 			req.session.error = 'Server error.';
 			return done(err);
-		});
-	}
-));
+		}); // end of sequelize query promise
+	} //end of passport callback
+)); // end of passport.use
 // Sets up sign-up LocalStrategy within Passport
 passport.use('local-signup', new LocalStrategy({
 	passReqToCallback : true, //allows us to pass back the request to the callback
 	usernameField: 'email' // changes default 'username' to be 'email' instead
 	}, (req, email, password, done) => {
-	    authFunct.localRegNewUser(req.body).then(user => {
-			if (user) {
-				console.log("REGISTERED: " + user.email);
-				req.session.success = 'Successfully registered as ' + user.email + '!';
-				done(null, user);
+		// first searches to see if email exists in database
+		db.UserTable.findOne({where: {email: email}}).then(user => {
+			// if user comes up null, display fail messages and return done(null, false)
+			if (user != null) {
+				console.log("USER ALREADY EXISTS:" + email);
+				req.session.notice = "An account has already been created with"
+								+ " that email address. Please try another one."
+				return done(null, false);
+				// throw new Error("USER ALREADY EXISTS:" + email);
 			}
-			if (!user) {
-				console.log("COULD NOT REGISTER");
-				req.session.notice = 'That email is already in use. Please try a different one.';
-				done(null, false);
-			}
-	    }).catch((err) => {
-	    	if (err.errors[0]) {
-	    		console.log(err.errors[0].message);
-	    		req.session.notice = 'Invalid input on one or more values. Please try again.';
-	    		done(null, false);
-	    	}
-	    	else {
-	    		console.log(err);
-	    		req.session.error = 'Unable to create user.';
-	    		done(null, false);
-	    	}
-	    });
-	}
-));
+			else {
+				// instantiates locally scoped constables, encrypts password argument.
+				// values come from email parameter, hash (encrypted pw), and req.body
+				const hash = bcrypt.hashSync(password, 8);
+				const newUser = {
+					email: email,
+					password: hash,
+					first_name: req.body.first_name,
+					last_name: req.body.last_name,
+					company_name: req.body.company_name,
+					phone_number: req.body.phone_number
+				};
+				console.log("CREATING USER: " + email + "...");
+				// attempts to insert new user into database.
+				db.UserTable.create(newUser).then(result => {
+					// if user was successfully able to create an account, display success
+					// message and return done(null, user)
+					console.log('ACCOUNT SUCCESSFULLY CREATED! ' + email);
+					req.session.success = "Account successfully created! Signed in as: " + email;
+					return done(null, newUser);
+				}).catch(err => {
+					// checks error object to see if it has useful validation messages to display.
+					if (err.hasOwnProperty(errors)) {
+						console.log(err.errors[0]);
+						req.session.notice = 'Invalid input at one or more values. Please try again.';
+					} else {
+						req.session.notice = 'Failed to create user. Please try again later.';
+					}
+					// always returns done(err)
+					console.log(err);
+					return done(err);
+				});
+			} // end of else
+		// if an error was thrown then display server error messages
+		}).catch(err => {
+			console.log(err);
+			console.log('FAILED TO CREATE USER:', email);
+			req.session.error = 'Server error: Failed to create new user account.'
+								+ ' Please try again later.';
+			return done(err);
+		}); // end of sequelize promise chain
+	} // end of passport callback
+)); // end of passport.use
 
 // ================ Express Configuration ================
 // Configures Express and body parser
