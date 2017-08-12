@@ -44,12 +44,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     phone_number: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        // only allows integers or null values
-        isInt: true
-      }
+      type: DataTypes.STRING,
+      allowNull: true      
     },
     email: {
       type: DataTypes.STRING,
