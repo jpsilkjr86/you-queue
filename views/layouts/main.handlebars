@@ -54,6 +54,18 @@
     <!-- main: important to wrap this part in <main> for sticky footer to work -->
     <main>
         <div class="container">
+            {{#if error}}
+            <p class="session-msg error-msg">{{error}}</p>
+            {{/if}}
+
+            {{#if success}}
+            <p class="session-msg success-msg">{{success}}</p>
+            {{/if}}
+
+            {{#if notice}}
+            <p class="session-msg notice-msg">{{notice}}</p>
+            {{/if}}
+
             {{{ body }}}
         </div>  
     </main>

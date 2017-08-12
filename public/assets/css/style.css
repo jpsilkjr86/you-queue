@@ -1,5 +1,4 @@
 body {
-
 	background: url("../images/res.jpg");
 	display: flex;
 	min-height: 100vh;
@@ -13,5 +12,33 @@ main {
 .customer-row {
 	font-size: 12px;
 	height: 140px;
+}
+
+.session-msg {
+	width: 300px;
+	margin: 20px auto;
+	padding: 10px;
+	opacity: .8;
+	text-align: center;
+	border-radius: 10px;
+	/*border: 2px solid #777;*/
+}
+
+.success-msg {
+	background-color: #ddddff;
+	color: #4444ee;
+	text-shadow: 1px 1px 1px white;
+}
+
+.error-msg {
+	background-color: #ff7777;
+	color: #222;
+    text-shadow: 0 0 10px white;
+}
+
+.notice-msg {
+	background-color: #ffdd88;
+	color: #444444;
+	text-shadow: 1px 1px 1px white;
 }
 

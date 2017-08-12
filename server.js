@@ -44,13 +44,13 @@ passport.use('local-signin', new LocalStrategy({
 		}
 		if (!user) {
 			console.log("COULD NOT LOG IN");
-			req.session.error = 'Could not log user in. Please try again.';
+			req.session.notice = 'Could not log user in. Please try again.';
 			done(null, user);
 		}
 		}).catch(err => {
 			console.log(err);
 			req.session.error = 'Server error.';
-			done();
+			done(null, user);
 		});
 	}
 ));
@@ -67,13 +67,13 @@ passport.use('local-signup', new LocalStrategy({
 			}
 			if (!user) {
 				console.log("COULD NOT REGISTER");
-				req.session.error = 'That email is already in use. Please try a different one.';
+				req.session.notice = 'That email is already in use. Please try a different one.';
 				done(null, user);
 			}
 	    }).catch((err) => {
 	    	if (err.errors[0].message) {
 	    		console.log(err.errors[0].message);
-	    		req.session.error = 'Invalid input on one or more values. Please try again.';
+	    		req.session.notice = 'Invalid input on one or more values. Please try again.';
 	    		done();
 	    	}
 	    	else {
