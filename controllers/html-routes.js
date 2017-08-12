@@ -55,7 +55,10 @@ module.exports = (app, db) => {
 					where: {
 						restaurant_id: restaurant_id,
 						active: true
-					}
+					},
+					order: [
+            			['createdAt', 'ASC']
+        			] 
 				});
 			}).then(results => {
 				// render handlebars according to results from query
