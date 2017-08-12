@@ -25,16 +25,9 @@
                                 <label for="phone_number">*Telephone</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <i class="material-icons prefix">event</i>
-                                <select multiple name="occasion" form="new-customer" required>
-                                    <option value="" disabled selected>*Choose one or more occasion.</option>
-                                    <option value="casual dining">Casual Dining</option>
-                                    <option value="birthday">Birthday</option>
-                                    <option value="wedding anniversary">Wedding Anniversary</option>
-                                    <option value="family gathering">Family Gathering</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <label for="occasion">*Occasion</label>
+                                <i class="material-icons prefix">email</i>
+                                <input id="email-new" type="email" class="validate" required="required" name="email">
+                                <label for="email">Email</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">account_circle</i>
@@ -47,11 +40,21 @@
                                 <label for="last_name">Last Name</label>
                             </div>
                             <div class="input-field col s12">
-                                <i class="material-icons prefix">email</i>
-                                <input id="email-new" type="email" class="validate" required="required" name="email">
-                                <label for="email">Email</label>
+                                <i class="material-icons prefix">event</i>
+                                <select multiple name="occasion" form="new-customer" required>
+                                    <option value="" disabled selected>*Choose one or more occasion.</option>
+                                    <option value="casual dining">Casual Dining</option>
+                                    <option value="birthday">Birthday</option>
+                                    <option value="wedding anniversary">Wedding Anniversary</option>
+                                    <option value="family gathering">Family Gathering</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="occasion">*Occasion</label>
                             </div>
-                            <button class="btn btn-large waves-effect waves-light right" type="submit">Submit</button>
+                            <div class="col s12 center">
+                                <a class="btn btn-large waves-effect waves-light red lighten-2 left" href="/">Cancel</a>
+                                <button class="btn btn-large waves-effect waves-light right" type="submit">Submit</button>
+                            </div>                                
                         </div> <!-- end of row -->
                     </div>
                 </form>
