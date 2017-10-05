@@ -1,5 +1,4 @@
 # You-Queue
-Digital Queue Management Interface
 See it deployed at: https://morning-spire-70373.herokuapp.com/
 ## Features
 - Personalized queue-management app that allows restaurants to store walk-in customer information and send alerts via SMS when tables are ready.
